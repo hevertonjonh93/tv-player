@@ -17,14 +17,30 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <ImageView
+                android:layout_width="84dp"
+                android:layout_height="84dp"
+                android:layout_gravity="center_horizontal"
+                android:contentDescription="Logo"
+                android:src="@drawable/ic_launcher" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:text="IPTV Player"
                 android:textColor="@color/text"
                 android:textSize="30sp"
                 android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Canais · Filmes · Séries"
+                android:textColor="@color/muted"
+                android:textSize="15sp" />
 
             <TextView
                 android:layout_width="match_parent"

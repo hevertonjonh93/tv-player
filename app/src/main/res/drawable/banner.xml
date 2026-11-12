@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="320dp"
-    android:height="180dp"
-    android:viewportWidth="320"
-    android:viewportHeight="180">
-    <path android:fillColor="#2F80ED" android:pathData="M0,0h320v180h-320z" />
-    <path android:fillColor="#FFFFFF" android:pathData="M135,55L135,125L195,90Z" />
-</vector>
+<!-- Banner da Android TV (320x180): degradê com a logo no centro -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <size android:width="320dp" android:height="180dp" />
+            <gradient
+                android:angle="315"
+                android:centerColor="@color/accent"
+                android:endColor="@color/accent2"
+                android:startColor="@color/bg_top" />
+        </shape>
+    </item>
+    <item
+        android:bottom="30dp"
+        android:drawable="@drawable/logo_mark"
+        android:left="100dp"
+        android:right="100dp"
+        android:top="20dp" />
+</layer-list>

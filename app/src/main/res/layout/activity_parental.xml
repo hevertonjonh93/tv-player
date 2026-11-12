@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="🔒 Controle parental"
+        android:textColor="@color/text"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <!-- Criar / alterar senha -->
+    <ScrollView
+        android:id="@+id/groupCreate"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/createBox"
+            android:layout_width="480dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingTop="16dp">
+
+            <TextView
+                android:id="@+id/tvCreateTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Crie uma senha numérica para bloquear pastas."
+                android:textColor="@color/muted"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/etPin1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/input_bg"
+                android:hint="Nova senha (mínimo 4 números)"
+                android:imeOptions="actionNext"
+                android:inputType="numberPassword"
+                android:maxLength="8"
+                android:padding="14dp"
+                android:textColor="@color/text"
+                android:textColorHint="@color/muted"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/etPin2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/input_bg"
+                android:hint="Repita a senha"
+                android:imeOptions="actionDone"
+                android:inputType="numberPassword"
+                android:maxLength="8"
+                android:padding="14dp"
+                android:textColor="@color/text"
+                android:textColorHint="@color/muted"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tvPinError"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:textColor="@color/error"
+                android:textSize="16sp"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btnSavePin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/row_bg"
+                android:padding="14dp"
+                android:text="Salvar senha"
+                android:textAllCaps="false"
+                android:textColor="@color/text"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Escolher pastas bloqueadas -->
+    <LinearLayout
+        android:id="@+id/groupManage"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Escolha as pastas que vão pedir senha (clique para bloquear/desbloquear):"
+            android:textColor="@color/muted"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/tabLive"
+                style="@style/TabButton"
+                android:text="Canais" />
+
+            <Button
+                android:id="@+id/tabMovies"
+                style="@style/TabButton"
+                android:text="Filmes" />
+
+            <Button
+                android:id="@+id/tabSeries"
+                style="@style/TabButton"
+                android:text="Séries" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="12dp"
+            android:layout_weight="1">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvLockCats"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <ProgressBar
+                android:id="@+id/lockProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tvLockMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:padding="16dp"
+                android:textColor="@color/muted"
+                android:textSize="18sp"
+                android:visibility="gone" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnChangePin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/row_bg"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:text="Alterar senha"
+                android:textAllCaps="false"
+                android:textColor="@color/text"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btnDisable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/row_bg"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:text="Desativar controle parental"
+                android:textAllCaps="false"
+                android:textColor="@color/text"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -8,7 +8,6 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.media3.common.MediaItem
 import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
@@ -18,7 +17,7 @@ import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
 import androidx.media3.ui.PlayerView
 
-class PlayerActivity : AppCompatActivity() {
+class PlayerActivity : BaseActivity() {
 
     private var player: ExoPlayer? = null
     private lateinit var playerView: PlayerView

@@ -17,7 +17,7 @@
         <activity
             android:name=".LoginActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -26,6 +26,11 @@
         </activity>
 
         <activity android:name=".HomeActivity" android:exported="false" />
+
+        <activity
+            android:name=".ParentalActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
 
         <activity
             android:name=".MainActivity"

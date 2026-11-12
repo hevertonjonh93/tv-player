@@ -1,9 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="bg">#FF101418</color>
-    <color name="panel">#FF1B2027</color>
-    <color name="accent">#FF2F80ED</color>
+    <!-- Fundo escuro arroxeado -->
+    <color name="bg">#FF0D0A1F</color>
+    <color name="bg_top">#FF231049</color>
+    <color name="bg_bottom">#FF06121F</color>
+    <color name="panel">#FF1C1838</color>
+    <color name="panel_line">#FF332D5C</color>
+    <color name="selected">#FF2E2660</color>
+
+    <!-- Destaque: roxo -> rosa -->
+    <color name="accent">#FF7C3AED</color>
+    <color name="accent2">#FFEC4899</color>
+
+    <!-- Cartões da tela inicial -->
+    <color name="live_a">#FFFF512F</color>
+    <color name="live_b">#FFDD2476</color>
+    <color name="movie_a">#FF7C3AED</color>
+    <color name="movie_b">#FF3B82F6</color>
+    <color name="series_a">#FF11998E</color>
+    <color name="series_b">#FF38EF7D</color>
+    <color name="parental_a">#FFF59E0B</color>
+    <color name="parental_b">#FFEF4444</color>
+
     <color name="text">#FFFFFFFF</color>
-    <color name="muted">#FFB0B7C0</color>
-    <color name="error">#FFFF6B6B</color>
+    <color name="muted">#FFB3ACD6</color>
+    <color name="error">#FFFF6B81</color>
 </resources>

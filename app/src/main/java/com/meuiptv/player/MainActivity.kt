@@ -13,13 +13,12 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import java.util.Locale
 
 /** Tela de conteúdo de uma seção (Canais, Filmes ou Séries). */
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     companion object {
         const val EXTRA_KIND = "kind"
@@ -42,6 +41,7 @@ class MainActivity : AppCompatActivity() {
     private var currentCat: Category? = null
     private var openSeries: Item? = null
     private var favSet: Set<String> = emptySet()
+    private var lockedSet: Set<String> = emptySet()
     private var loaded = false
 
     private val handler = Handler(Looper.getMainLooper())
@@ -70,10 +70,15 @@ class MainActivity : AppCompatActivity() {
         etSearch = findViewById(R.id.etSearch)
         findViewById<TextView>(R.id.tvSection).text = kind.title
 
-        catAdapter = RowAdapter<Category>({ it.name }) { c, pos ->
-            catAdapter.select(pos)
-            if (etSearch.text.isNotEmpty()) etSearch.setText("")
-            showCategory(c)
+        catAdapter = RowAdapter<Category>({ (if (isBlocked(it.id)) "🔒 " else "") + it.name }) { c, pos ->
+            if (isBlocked(c.id)) {
+                Parental.askPin(this, "Pasta bloqueada: ${c.name}", onOk = {
+                    Parental.unlock(kind, c.id)
+                    openCategory(c, pos)
+                })
+            } else {
+                openCategory(c, pos)
+            }
         }
         chAdapter = RowAdapter<Item>(
             label = { itemLabel(it) },
@@ -146,9 +151,25 @@ class MainActivity : AppCompatActivity() {
 
     private fun all(): List<Item> = Store.items[kind] ?: emptyList()
 
+    private fun isBlocked(catId: String): Boolean = Parental.isBlocked(kind, catId, lockedSet)
+
+    /** Tudo que não está em pasta bloqueada (usado em Todos, Favoritos, Recentes e Busca). */
+    private fun visible(): List<Item> {
+        val list = all()
+        return if (lockedSet.isEmpty()) list else list.filter { !isBlocked(it.categoryId) }
+    }
+
+    private fun openCategory(c: Category, pos: Int) {
+        catAdapter.select(pos)
+        catAdapter.refresh()
+        if (etSearch.text.isNotEmpty()) etSearch.setText("")
+        showCategory(c)
+    }
+
     private fun populate() {
         loaded = true
         favSet = Store.favorites(this)
+        lockedSet = Parental.locked(this, kind)
         val allName = when (kind) {
             Kind.LIVE -> "Todos os canais"
             Kind.MOVIE -> "Todos os filmes"
@@ -173,13 +194,13 @@ class MainActivity : AppCompatActivity() {
         openSeries = null
         val list = all()
         shown = when (c.id) {
-            CAT_ALL -> list
-            CAT_FAV -> list.filter { favSet.contains(it.key) }
+            CAT_ALL -> visible()
+            CAT_FAV -> visible().filter { favSet.contains(it.key) }
             CAT_RECENT -> {
-                val byKey = list.associateBy { it.key }
+                val byKey = visible().associateBy { it.key }
                 Store.recents(this, kind).mapNotNull { byKey[it] }
             }
-            else -> list.filter { it.categoryId == c.id }
+            else -> if (isBlocked(c.id)) emptyList() else list.filter { it.categoryId == c.id }
         }
         show(shown, "${c.name} (${shown.size})")
         if (shown.isEmpty() && list.isNotEmpty()) {
@@ -201,7 +222,7 @@ class MainActivity : AppCompatActivity() {
             return
         }
         openSeries = null
-        shown = all().filter { it.name.lowercase(Locale.getDefault()).contains(q) }
+        shown = visible().filter { it.name.lowercase(Locale.getDefault()).contains(q) }
         show(shown, "Busca: \"$q\" (${shown.size})")
         if (shown.isEmpty()) showMessage("Nada encontrado.")
     }

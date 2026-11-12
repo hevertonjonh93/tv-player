@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Desenho da logo: TV com antena e botão play (branco, sem fundo) -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="96dp"
+    android:height="96dp"
+    android:viewportWidth="96"
+    android:viewportHeight="96">
+    <!-- antena -->
+    <path
+        android:pathData="M36,16 L48,28 L60,16"
+        android:strokeWidth="5"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <!-- tela -->
+    <path
+        android:pathData="M26,30 h44 a10,10 0 0 1 10,10 v28 a10,10 0 0 1 -10,10 h-44 a10,10 0 0 1 -10,-10 v-28 a10,10 0 0 1 10,-10 z"
+        android:strokeWidth="5"
+        android:strokeColor="#FFFFFFFF" />
+    <!-- play -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M42,42 L42,66 L62,54 Z" />
+</vector>

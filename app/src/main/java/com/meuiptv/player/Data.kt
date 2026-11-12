@@ -124,7 +124,7 @@ object Store {
         resetContent()
     }
 
-    private fun scope(): String = if (mode == M3U) "m3u:$m3uUrl" else "xt:$base|$user"
+    fun scope(): String = if (mode == M3U) "m3u:$m3uUrl" else "xt:$base|$user"
 
     // ---------- Favoritos ----------
     fun favorites(ctx: Context): Set<String> =

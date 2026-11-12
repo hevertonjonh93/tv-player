@@ -7,12 +7,11 @@ import android.os.Looper
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : BaseActivity() {
 
     private lateinit var tvClock: TextView
     private val handler = Handler(Looper.getMainLooper())
@@ -43,6 +42,9 @@ class HomeActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.cardMovies).setOnClickListener { open(Kind.MOVIE) }
         findViewById<TextView>(R.id.cardSeries).setOnClickListener { open(Kind.SERIES) }
 
+        findViewById<Button>(R.id.btnParental).setOnClickListener {
+            startActivity(Intent(this, ParentalActivity::class.java))
+        }
         findViewById<Button>(R.id.btnReload).setOnClickListener {
             Store.resetContent()
             Toast.makeText(this, "As listas serão recarregadas ao abrir cada seção.", Toast.LENGTH_SHORT).show()

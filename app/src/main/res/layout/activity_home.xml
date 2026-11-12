@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="IPTV Player"
+            android:textColor="@color/text"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvClock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text"
+            android:textSize="22sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvAccount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/muted"
+        android:textSize="15sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/cardLive"
+            style="@style/HomeCard"
+            android:text="📺\nCanais\nao vivo" />
+
+        <TextView
+            android:id="@+id/cardMovies"
+            style="@style/HomeCard"
+            android:text="🎬\nFilmes" />
+
+        <TextView
+            android:id="@+id/cardSeries"
+            style="@style/HomeCard"
+            android:text="🍿\nSéries" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnReload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/row_bg"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="Atualizar listas"
+            android:textAllCaps="false"
+            android:textColor="@color/text"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/row_bg"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="Sair da conta"
+            android:textAllCaps="false"
+            android:textColor="@color/text"
+            android:textSize="16sp" />
+    </LinearLayout>
+</LinearLayout>

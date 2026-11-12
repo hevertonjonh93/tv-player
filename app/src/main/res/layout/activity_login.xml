@@ -12,6 +12,7 @@
         android:padding="24dp">
 
         <LinearLayout
+            android:id="@+id/loginBox"
             android:layout_width="480dp"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -25,47 +26,125 @@
                 android:textSize="30sp"
                 android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/etServer"
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:background="@drawable/input_bg"
-                android:hint="Servidor / DNS (ex: http://meuservidor.com:8080)"
-                android:imeOptions="actionNext"
-                android:inputType="textUri"
-                android:padding="14dp"
-                android:textColor="@color/text"
-                android:textColorHint="@color/muted"
-                android:textSize="18sp" />
+                android:layout_marginTop="20dp"
+                android:text="Tipo de login"
+                android:textColor="@color/muted"
+                android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/etUser"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/input_bg"
-                android:hint="Usuário"
-                android:imeOptions="actionNext"
-                android:inputType="textNoSuggestions"
-                android:padding="14dp"
-                android:textColor="@color/text"
-                android:textColorHint="@color/muted"
-                android:textSize="18sp" />
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/etPass"
+                <Button
+                    android:id="@+id/btnModeXtream"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="6dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/tab_bg"
+                    android:padding="12dp"
+                    android:text="Xtream Codes"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/btnModeM3u"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/tab_bg"
+                    android:padding="12dp"
+                    android:text="Lista M3U / M3U8"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/groupXtream"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/input_bg"
-                android:hint="Senha"
-                android:imeOptions="actionDone"
-                android:inputType="textPassword"
-                android:padding="14dp"
-                android:textColor="@color/text"
-                android:textColorHint="@color/muted"
-                android:textSize="18sp" />
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/etServer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/input_bg"
+                    android:hint="Servidor / DNS (ex: http://meuservidor.com:8080)"
+                    android:imeOptions="actionNext"
+                    android:inputType="textUri"
+                    android:padding="14dp"
+                    android:textColor="@color/text"
+                    android:textColorHint="@color/muted"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/etUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/input_bg"
+                    android:hint="Usuário"
+                    android:imeOptions="actionNext"
+                    android:inputType="textNoSuggestions"
+                    android:padding="14dp"
+                    android:textColor="@color/text"
+                    android:textColorHint="@color/muted"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/etPass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/input_bg"
+                    android:hint="Senha"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPassword"
+                    android:padding="14dp"
+                    android:textColor="@color/text"
+                    android:textColorHint="@color/muted"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/groupM3u"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <EditText
+                    android:id="@+id/etM3u"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/input_bg"
+                    android:hint="URL da lista (http://.../lista.m3u)"
+                    android:imeOptions="actionDone"
+                    android:inputType="textUri"
+                    android:padding="14dp"
+                    android:textColor="@color/text"
+                    android:textColorHint="@color/muted"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Aceita listas .m3u, .m3u8 e links get.php. Canais, filmes e séries são separados automaticamente."
+                    android:textColor="@color/muted"
+                    android:textSize="14sp" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tvError"

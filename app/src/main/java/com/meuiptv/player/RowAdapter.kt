@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class RowAdapter<T>(
     private val label: (T) -> String,
+    private val onLongClick: ((T, Int) -> Unit)? = null,
     private val onClick: (T, Int) -> Unit
 ) : RecyclerView.Adapter<RowAdapter.VH>() {
 
@@ -20,6 +21,10 @@ class RowAdapter<T>(
         selected = -1
         notifyDataSetChanged()
     }
+
+    fun refresh() = notifyDataSetChanged()
+
+    fun itemAt(pos: Int): T? = items.getOrNull(pos)
 
     fun select(pos: Int) {
         val old = selected
@@ -41,6 +46,16 @@ class RowAdapter<T>(
         holder.tv.setOnClickListener {
             val p = holder.bindingAdapterPosition
             if (p != RecyclerView.NO_POSITION) onClick(items[p], p)
+        }
+        val lc = onLongClick
+        if (lc != null) {
+            holder.tv.setOnLongClickListener {
+                val p = holder.bindingAdapterPosition
+                if (p != RecyclerView.NO_POSITION) lc(items[p], p)
+                true
+            }
+        } else {
+            holder.tv.setOnLongClickListener(null)
         }
     }
 }

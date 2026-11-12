@@ -38,7 +38,8 @@ data class Item(
     val url: String = "",
     val fallback: String? = null,
     val isSeries: Boolean = false,
-    val epgId: String = ""
+    val epgId: String = "",
+    val image: String = ""
 ) {
     val key: String get() = "${kind.name}:$id"
     val label: String get() = name.ifBlank { "Sem nome" }
@@ -300,18 +301,20 @@ object Api {
                     out.add(Item(id, name, cat, kind,
                         url = path("live", id, "m3u8"),
                         fallback = path("live", id, "ts"),
-                        epgId = id))
+                        epgId = id,
+                        image = str(o, "stream_icon")))
                 }
                 Kind.MOVIE -> {
                     val id = str(o, "stream_id")
                     if (id.isEmpty()) continue
                     val ext = str(o, "container_extension").ifBlank { "mp4" }
-                    out.add(Item(id, name, cat, kind, url = path("movie", id, ext)))
+                    out.add(Item(id, name, cat, kind, url = path("movie", id, ext),
+                        image = str(o, "stream_icon")))
                 }
                 Kind.SERIES -> {
                     val id = str(o, "series_id")
                     if (id.isEmpty()) continue
-                    out.add(Item(id, name, cat, kind, isSeries = true))
+                    out.add(Item(id, name, cat, kind, isSeries = true, image = str(o, "cover")))
                 }
             }
         }
@@ -345,7 +348,9 @@ object Api {
                     if (num.isNotEmpty()) append("E$num")
                 }.trim()
                 val name = if (prefix.isNotEmpty()) "$prefix - $title" else title
-                out.add(Item("ep$id", name, series.id, Kind.SERIES, url = path("series", id, ext)))
+                val img = o.optJSONObject("info")?.let { str(it, "movie_image") }.orEmpty()
+                out.add(Item("ep$id", name, series.id, Kind.SERIES, url = path("series", id, ext),
+                    image = img.ifBlank { series.image }))
             }
         }
         return out
@@ -410,6 +415,7 @@ object Api {
             c.inputStream.bufferedReader().use { r ->
                 var name: String? = null
                 var group = ""
+                var logo = ""
                 while (true) {
                     val raw = r.readLine() ?: break
                     val line = raw.trim()
@@ -425,6 +431,7 @@ object Api {
                             val title = if (comma >= 0) line.substring(comma + 1).trim() else ""
                             name = title.ifBlank { attrs["tvg-name"] ?: "" }
                             group = attrs["group-title"] ?: ""
+                            logo = attrs["tvg-logo"] ?: ""
                         }
                         line.startsWith("#EXTGRP:", true) -> {
                             if (group.isEmpty()) group = line.substring(8).trim()
@@ -440,23 +447,24 @@ object Api {
                             val kind = classify(n, g, line)
                             cats[kind]!!.add(g)
                             when (kind) {
-                                Kind.LIVE -> live.add(Item(line, n, g, kind, url = line))
-                                Kind.MOVIE -> movies.add(Item(line, n, g, kind, url = line))
+                                Kind.LIVE -> live.add(Item(line, n, g, kind, url = line, image = logo))
+                                Kind.MOVIE -> movies.add(Item(line, n, g, kind, url = line, image = logo))
                                 Kind.SERIES -> {
                                     val m = epRe.find(n)
                                     val sName = m?.groupValues?.get(1)?.trim()?.trimEnd('-', '|', ':', '.')?.trim()
                                         .takeUnless { it.isNullOrEmpty() } ?: n
                                     val sid = "s:$g|$sName"
                                     val list = episodes.getOrPut(sid) {
-                                        series.add(Item(sid, sName, g, kind, isSeries = true))
+                                        series.add(Item(sid, sName, g, kind, isSeries = true, image = logo))
                                         ArrayList()
                                     }
-                                    list.add(Item(line, n, g, kind, url = line))
+                                    list.add(Item(line, n, g, kind, url = line, image = logo))
                                 }
                             }
                             count++
                             name = null
                             group = ""
+                            logo = ""
                         }
                     }
                 }

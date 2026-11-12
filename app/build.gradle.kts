@@ -11,8 +11,8 @@ android {
         applicationId = "com.meuiptv.player"
         minSdk = 21
         targetSdk = 34
-        versionCode = 3
-        versionName = "3.0"
+        versionCode = 4
+        versionName = "4.0"
     }
 
     buildTypes {
@@ -37,4 +37,5 @@ dependencies {
     implementation("androidx.media3:media3-exoplayer:1.3.1")
     implementation("androidx.media3:media3-exoplayer-hls:1.3.1")
     implementation("androidx.media3:media3-ui:1.3.1")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 }

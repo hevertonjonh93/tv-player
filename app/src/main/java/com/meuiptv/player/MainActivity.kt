@@ -35,7 +35,7 @@ class MainActivity : BaseActivity() {
     private lateinit var tvChannelsTitle: TextView
     private lateinit var etSearch: EditText
     private lateinit var catAdapter: RowAdapter<Category>
-    private lateinit var chAdapter: RowAdapter<Item>
+    private lateinit var chAdapter: ItemAdapter
 
     private var shown: List<Item> = emptyList()
     private var currentCat: Category? = null
@@ -80,7 +80,7 @@ class MainActivity : BaseActivity() {
                 openCategory(c, pos)
             }
         }
-        chAdapter = RowAdapter<Item>(
+        chAdapter = ItemAdapter(
             label = { itemLabel(it) },
             onLongClick = { item, _ -> toggleFavorite(item) }
         ) { item, pos -> onItemClick(item, pos) }
